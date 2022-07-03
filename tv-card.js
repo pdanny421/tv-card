@@ -364,7 +364,7 @@ class TVCardServices extends LitElement {
                 toucharea {
                     border-radius: 30px;
                     flex-grow: 1;
-                    height: 350px;
+                    height: 400px;
                     background: #6d767e;
                     touch-action: none;
                     text-align: center;

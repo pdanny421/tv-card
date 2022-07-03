@@ -108,7 +108,7 @@ class TVCardServices extends LitElement {
         this._helpersResolve = undefined;
         this._hassResolve = undefined;
 
-        let entity_id = this._config.entity
+        let entity_id = this._config.slider_entity
 
         let slider_config = {
             "type": "custom:my-slider",
@@ -118,7 +118,7 @@ class TVCardServices extends LitElement {
             "secondarySliderColor": "rgb(60, 60, 60)",
             "mainSliderColorOff": "rgb(60, 60, 60)",
             "secondarySliderColorOff": "rgb(60, 60, 60)",
-            "thumbWidth": "0px",
+            "thumbWidth": "5px",
             "thumbHorizontalPadding": "0px",
             "radius": "25px",
         }

@@ -176,7 +176,7 @@ class TVCardServices extends LitElement {
         clearTimeout(timer);
         timer = null;
 
-        this.sendKey(this._config.double_click_keycode ? this._config.double_click_keycode : "KEY_RETURN");
+        this.sendKey(this._config.double_click_keycode ? this._config.double_click_keycode : "BACK");
         if (this._config.enable_button_feedback === undefined || this._config.enable_button_feedback) fireEvent(window, "haptic", "success");
     }
 
@@ -361,10 +361,16 @@ class TVCardServices extends LitElement {
                 .diagonal {
                     background-color: var(--light-primary-color);
                 }
+                if (this._config.touchpad_height === undefined) {
+                    let touchpad_height = "250px";
+              } else {
+                    let touchpad_height = "${this._config.touchpad_height}px";
+              }
+
                 toucharea {
                     border-radius: 30px;
                     flex-grow: 1;
-                    height: 450px;
+                    height: touchpad_height;
                     background: #6d767e;
                     touch-action: none;
                     text-align: center;

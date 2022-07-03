@@ -33,7 +33,7 @@ const sources = {
     "youtube": {"source": "YouTube", "icon": "mdiYoutube"},
 };
 
-const touchpad_height = this._config.touchpad_height ? this._config.touchpad_height : "250px";
+var touchpad_height = this._config.touchpad_height ? this._config.touchpad_height : "250px";
 
 var custom_keys = {};
 var custom_sources = {};

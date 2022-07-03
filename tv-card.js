@@ -361,11 +361,11 @@ class TVCardServices extends LitElement {
                 .diagonal {
                     background-color: var(--light-primary-color);
                 }
-                let pad_height = this._config.touchpad_height
+               // let pad_height = this._config.touchpad_height
                 toucharea {
                     border-radius: 30px;
                     flex-grow: 1;
-                    height: var(--pad_height);
+                    height: 350;
                     background: #6d767e;
                     touch-action: none;
                     text-align: center;

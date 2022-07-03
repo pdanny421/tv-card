@@ -33,6 +33,8 @@ const sources = {
     "youtube": {"source": "YouTube", "icon": "mdiYoutube"},
 };
 
+const touchpad_height = this.config.touchpad_height ? this.config.touchpad_height : "250px";
+
 var custom_keys = {};
 var custom_sources = {};
 
@@ -361,12 +363,6 @@ class TVCardServices extends LitElement {
                 .diagonal {
                     background-color: var(--light-primary-color);
                 }
-                if (this._config.touchpad_height === undefined) {
-                    let touchpad_height = "250px";
-              } else {
-                    let touchpad_height = "${this._config.touchpad_height}px";
-              }
-
                 toucharea {
                     border-radius: 30px;
                     flex-grow: 1;

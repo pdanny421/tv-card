@@ -6,24 +6,24 @@ const html = LitElement.prototype.html;
 import * as mdiIcons from "https://unpkg.com/@mdi/js@6.4.95/mdi.js?module";
 
 const keys = {
-    "power": {"key": "KEY_POWER", "icon": "mdiPower"},
-    "volume_up": {"key": "KEY_VOLUP", "icon": "mdiVolumePlus"},
-    "volume_down": {"key": "KEY_VOLDOWN", "icon": "mdiVolumeMinus"},
-    "volume_mute": {"key": "KEY_MUTE", "icon": "mdiVolumeMute"},
-    "return": {"key": "KEY_RETURN", "icon": "mdiArrowLeft"},
+    "power": {"key": "POWER", "icon": "mdiPower"},
+    "volume_up": {"key": "VOLUME_UP", "icon": "mdiVolumePlus"},
+    "volume_down": {"key": "VOLUME_UP", "icon": "mdiVolumeMinus"},
+    "volume_mute": {"key": "VOLUME_MUTE", "icon": "mdiVolumeMute"},
+    "return": {"key": "BACK", "icon": "mdiArrowLeft"},
     "source": {"key": "KEY_SOURCE", "icon": "mdiVideoInputHdmi"},
     "info": {"key": "KEY_INFO", "icon": "mdiTelevisionGuide"},
-    "home": {"key": "KEY_HOME", "icon": "mdiHome"},
+    "home": {"key": "HOME", "icon": "mdiHome"},
     "channel_up": {"key": "KEY_CHUP", "icon": "mdiArrowUp"},
     "channel_down": {"key": "KEY_CHDOWN", "icon": "mdiArrowDown"},
-    "up": {"key": "KEY_UP", "icon": "mdiChevronUp"},
-    "left": {"key": "KEY_LEFT", "icon": "mdiChevronLeft"},
-    "enter": {"key": "KEY_ENTER", "icon": "mdiCheckboxBlankCircle"},
-    "right": {"key": "KEY_RIGHT", "icon": "mdiChevronRight"},
-    "down": {"key": "KEY_DOWN", "icon": "mdiChevronDown"},
+    "up": {"key": "UP", "icon": "mdiChevronUp"},
+    "left": {"key": "LEFT", "icon": "mdiChevronLeft"},
+    "enter": {"key": "ENTER", "icon": "mdiCheckboxBlankCircle"},
+    "right": {"key": "RIGHT", "icon": "mdiChevronRight"},
+    "down": {"key": "DOWN", "icon": "mdiChevronDown"},
     "rewind": {"key": "KEY_REWIND", "icon": "mdiRewind"},
-    "play": {"key": "KEY_PLAY", "icon": "mdiPlay"},
-    "pause": {"key": "KEY_PAUSE", "icon": "mdiPause"},
+    "play": {"key": "PLAY", "icon": "mdiPlay"},
+    "pause": {"key": "PAUSE", "icon": "mdiPause"},
     "fast_forward": {"key": "KEY_FF", "icon": "mdiFastForward"},
 };
 
@@ -141,9 +141,8 @@ class TVCardServices extends LitElement {
     sendKey(key) {
         let entity_id = this._config.entity;
 
-        this._hass.callService("media_player", "play_media", {
-            media_content_id: key,
-            media_content_type: "send_key",
+        this._hass.callService("androidtv", "adb_command", {
+            command: key,
         }, { entity_id: entity_id });
     }
 
@@ -159,7 +158,7 @@ class TVCardServices extends LitElement {
     onClick(event) {
         event.stopImmediatePropagation();
         let click_action = () => {
-            this.sendKey("KEY_ENTER");
+            this.sendKey("ENTER");
             if (this._config.enable_button_feedback === undefined || this._config.enable_button_feedback) fireEvent(window, "haptic", "light");
         }
         if (this._config.enable_double_click) {
@@ -184,7 +183,7 @@ class TVCardServices extends LitElement {
     onTouchStart(event) {
         event.stopImmediatePropagation();
 
-        holdaction = "KEY_ENTER";
+        holdaction = "ENTER";
         holdtimer = setTimeout(() => {
             //hold
             holdinterval = setInterval(() => {
@@ -220,12 +219,12 @@ class TVCardServices extends LitElement {
 
         if (Math.abs(diffX) > Math.abs(diffY)) {
             // sliding horizontally
-            let key = diffX > 0 ? "KEY_LEFT" : "KEY_RIGHT";
+            let key = diffX > 0 ? "LEFT" : "RIGHT";
             holdaction = key;
             this.sendKey(key);
         } else {
             // sliding vertically
-            let key = diffY > 0 ? "KEY_UP" : "KEY_DOWN";
+            let key = diffY > 0 ? "UP" : "DOWN";
             holdaction = key;
             this.sendKey(key);
         }
@@ -365,7 +364,7 @@ class TVCardServices extends LitElement {
                 toucharea {
                     border-radius: 30px;
                     flex-grow: 1;
-                    height: 250px;
+                    height: 450px;
                     background: #6d767e;
                     touch-action: none;
                     text-align: center;

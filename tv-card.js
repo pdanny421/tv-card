@@ -370,7 +370,7 @@ class TVCardServices extends LitElement {
                 toucharea {
                     border-radius: 30px;
                     flex-grow: 1;
-                    height: "${touchpad_height}";
+                    height: ${touchpad_height};
                     background: #6d767e;
                     touch-action: none;
                     text-align: center;

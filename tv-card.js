@@ -8,7 +8,7 @@ import * as mdiIcons from "https://unpkg.com/@mdi/js@6.4.95/mdi.js?module";
 const keys = {
     "power": {"key": "POWER", "icon": "mdiPower"},
     "volume_up": {"key": "VOLUME_UP", "icon": "mdiVolumePlus"},
-    "volume_down": {"key": "VOLUME_UP", "icon": "mdiVolumeMinus"},
+    "volume_down": {"key": "VOLUME_DOWN", "icon": "mdiVolumeMinus"},
     "volume_mute": {"key": "VOLUME_MUTE", "icon": "mdiVolumeMute"},
     "return": {"key": "BACK", "icon": "mdiArrowLeft"},
     "source": {"key": "KEY_SOURCE", "icon": "mdiVideoInputHdmi"},
@@ -108,13 +108,13 @@ class TVCardServices extends LitElement {
         this._helpersResolve = undefined;
         this._hassResolve = undefined;
 
-        let entity_id = this._config.slider_entity
+        let slider_entity = this._config.slider_entity
 
         let slider_config = {
             "type": "custom:my-slider",
-            "entity": entity_id,
+            "entity": slider_entity,
             "height": "50px",
-            "mainSliderColor": "white",
+            "mainSliderColor": "gray",
             "secondarySliderColor": "rgb(60, 60, 60)",
             "mainSliderColorOff": "rgb(60, 60, 60)",
             "secondarySliderColorOff": "rgb(60, 60, 60)",

@@ -334,7 +334,7 @@ class TVCardServices extends LitElement {
 
         var output = html `
             ${this.renderStyle()}
-            <ha-card .header="${this._config.title}">${content}</ha-card>
+            <ha-card .header="${this._config.touchpad_height}">${content}</ha-card>
         `;
 
         return html `${output}`;

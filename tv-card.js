@@ -336,7 +336,7 @@ class TVCardServices extends LitElement {
 
         var output = html `
             ${this.renderStyle()}
-            <ha-card .header="${this._config.touchpad_height}">${content}</ha-card>
+            <ha-card .header="${this._config.title}">${content}</ha-card>
         `;
 
         return html `${output}`;
@@ -366,7 +366,7 @@ class TVCardServices extends LitElement {
                 toucharea {
                     border-radius: 30px;
                     flex-grow: 1;
-                    height: 375px;
+                    height: 250px;
                     background: #6d767e;
                     touch-action: none;
                     text-align: center;
@@ -415,4 +415,4 @@ class TVCardServices extends LitElement {
     }
 }
 
-customElements.define("tv-card", TVCardServices);
+customElements.define("danny-tv-card", TVCardServices);

@@ -413,4 +413,4 @@ class TVCardServices extends LitElement {
     }
 }
 
-customElements.define("danny-tv-card", TVCardServices);
+customElements.define("tv-card", TVCardServices);

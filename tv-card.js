@@ -367,7 +367,7 @@ class TVCardServices extends LitElement {
                     border-radius: 30px;
                     flex-grow: 1;
                     height: 350px;
-                    background: #6d767e;
+                    background: #212121;
                     touch-action: none;
                     text-align: center;
                 }

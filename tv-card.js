@@ -366,7 +366,7 @@ class TVCardServices extends LitElement {
                 }
                 .row {
                     display: flex;
-                    padding: 8px 36px 8px 36px;
+                    padding: 5px 10px 5px 10px;
                     justify-content: space-evenly;
                 }
                 .diagonal {
@@ -375,7 +375,7 @@ class TVCardServices extends LitElement {
                 toucharea {
                     border-radius: 30px;
                     flex-grow: 1;
-                    height: 250px;
+                    height: 350px;
                     background: var(--secondary-background-color);
                     touch-action: none;
                     text-align: center;

@@ -97,10 +97,10 @@ class TVCardServices extends LitElement {
         if (this._hassResolve) this._hassResolve();
     }
 
-        get hass() {
+    get hass() {
         return this._hass;
     }
-    
+
     async loadCardHelpers() {
         this._helpers = await (window).loadCardHelpers();
         if (this._helpersResolve) this._helpersResolve();
@@ -116,13 +116,13 @@ class TVCardServices extends LitElement {
 
         let slider_config = {
             "type": "custom:my-slider",
-            "entity": slider_entity,
+            "entity": "media_player.tv",
             "height": "50px",
-            "mainSliderColor": "gray",
+            "mainSliderColor": "white",
             "secondarySliderColor": "rgb(60, 60, 60)",
             "mainSliderColorOff": "rgb(60, 60, 60)",
             "secondarySliderColorOff": "rgb(60, 60, 60)",
-            "thumbWidth": "5px",
+            "thumbWidth": "0px",
             "thumbHorizontalPadding": "0px",
             "radius": "25px",
         };
@@ -152,7 +152,6 @@ class TVCardServices extends LitElement {
         }, { entity_id: entity_id });
     }
 
-    
     changeSource(source) {
         let entity_id = this._config.entity;
 
@@ -261,7 +260,7 @@ class TVCardServices extends LitElement {
 
     buildIconButton(action) {
         let info = custom_keys[action] || custom_sources[action] || keys[action] || sources[action];
-                let custom_icon_path = info? custom_icons[info.icon] : custom_icons[action];
+        let custom_icon_path = info? custom_icons[info.icon] : custom_icons[action];
         let icon = (
             custom_icon_path? custom_icon_path :
             info? mdiIcons[info.icon] :
@@ -367,7 +366,7 @@ class TVCardServices extends LitElement {
                 }
                 .row {
                     display: flex;
-                    padding: 10px 20px 10px 20px;
+                    padding: 8px 36px 8px 36px;
                     justify-content: space-evenly;
                 }
                 .diagonal {
@@ -376,7 +375,7 @@ class TVCardServices extends LitElement {
                 toucharea {
                     border-radius: 30px;
                     flex-grow: 1;
-                    height: 350px;
+                    height: 250px;
                     background: var(--secondary-background-color);
                     touch-action: none;
                     text-align: center;

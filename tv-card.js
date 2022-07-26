@@ -3,39 +3,33 @@ const LitElement = Object.getPrototypeOf(
 );
 const html = LitElement.prototype.html;
 
-import * as mdiIcons from "https://unpkg.com/@mdi/js@6.4.95/mdi.js?module";
-
 const keys = {
-    "power": {"key": "POWER", "icon": "mdiPower"},
-    "volume_up": {"key": "VOLUME_UP", "icon": "mdiVolumePlus"},
-    "volume_down": {"key": "VOLUME_DOWN", "icon": "mdiVolumeMinus"},
-    "volume_mute": {"key": "VOLUME_MUTE", "icon": "mdiVolumeMute"},
-    "return": {"key": "BACK", "icon": "mdiArrowLeft"},
-    "source": {"key": "KEY_SOURCE", "icon": "mdiVideoInputHdmi"},
-    "info": {"key": "KEY_INFO", "icon": "mdiTelevisionGuide"},
-    "home": {"key": "HOME", "icon": "mdiHome"},
-    "channel_up": {"key": "KEY_CHUP", "icon": "mdiArrowUp"},
-    "channel_down": {"key": "KEY_CHDOWN", "icon": "mdiArrowDown"},
-    "up": {"key": "UP", "icon": "mdiChevronUp"},
-    "left": {"key": "LEFT", "icon": "mdiChevronLeft"},
-    "enter": {"key": "ENTER", "icon": "mdiCheckboxBlankCircle"},
-    "right": {"key": "RIGHT", "icon": "mdiChevronRight"},
-    "down": {"key": "DOWN", "icon": "mdiChevronDown"},
-    "rewind": {"key": "KEY_REWIND", "icon": "mdiRewind"},
-    "play": {"key": "PLAY", "icon": "mdiPlay"},
-    "pause": {"key": "PAUSE", "icon": "mdiPause"},
-    "fast_forward": {"key": "KEY_FF", "icon": "mdiFastForward"},
+    "power": {"key": "KEY_POWER", "icon": "mdi:power"},
+    "volume_up": {"key": "KEY_VOLUP", "icon": "mdi:volume-plus"},
+    "volume_down": {"key": "KEY_VOLDOWN", "icon": "mdi:volume-minus"},
+    "volume_mute": {"key": "KEY_MUTE", "icon": "mdi:volume-mute"},
+    "return": {"key": "KEY_RETURN", "icon": "mdi:arrow-left"},
+    "source": {"key": "KEY_SOURCE", "icon": "mdi:video-input-hdmi"},
+    "info": {"key": "KEY_INFO", "icon": "mdi:television-guide"},
+    "home": {"key": "KEY_HOME", "icon": "mdi:home"},
+    "channel_up": {"key": "KEY_CHUP", "icon": "mdi:arrow-up"},
+    "channel_down": {"key": "KEY_CHDOWN", "icon": "mdi:arrow-down"},
+    "up": {"key": "KEY_UP", "icon": "mdi:chevron-up"},
+    "left": {"key": "KEY_LEFT", "icon": "mdi:chevron-left"},
+    "enter": {"key": "KEY_ENTER", "icon": "mdi:checkbox-blank-circle"},
+    "right": {"key": "KEY_RIGHT", "icon": "mdi:chevron-right"},
+    "down": {"key": "KEY_DOWN", "icon": "mdi:chevron-down"},
+    "rewind": {"key": "KEY_REWIND", "icon": "mdi:rewind"},
+    "play": {"key": "KEY_PLAY", "icon": "mdi:play"},
+    "pause": {"key": "KEY_PAUSE", "icon": "mdi:pause"},
+    "fast_forward": {"key": "KEY_FF", "icon": "mdi:fast-forward"},
 };
 
 const sources = {
-    "netflix": {"source": "Netflix", "icon": "mdiNetflix"},
-    "spotify": {"source": "Spotify", "icon": "mdiSpotify"},
-    "youtube": {"source": "YouTube", "icon": "mdiYoutube"},
+    "netflix": {"source": "Netflix", "icon": "mdi:netflix"},
+    "spotify": {"source": "Spotify", "icon": "mdi:spotify"},
+    "youtube": {"source": "YouTube", "icon": "mdi:youtube"},
 };
-
-var custom_keys = {};
-var custom_sources = {};
-var custom_icons = {};
 
 var fireEvent = function(node, type, detail, options) {
     options = options || {};
@@ -48,17 +42,26 @@ var fireEvent = function(node, type, detail, options) {
     return event;
 };
 
-var holdtimer = null;
-var holdaction = null;
-var holdinterval = null;
-var timer = null;
-
 class TVCardServices extends LitElement {
+    constructor() {
+        super();
+
+        this.custom_keys = {};
+        this.custom_sources = {};
+        this.custom_icons = {};
+
+        this.holdtimer = null;
+        this.holdaction = null;
+        this.holdinterval = null;
+        this.timer = null;
+    }
+
     static get properties() {
         return {
             _hass: {},
             _config: {},
             _apps: {},
+            trigger: {},
         };
     }
 
@@ -77,9 +80,9 @@ class TVCardServices extends LitElement {
         }
 
         this._config = { theme: "default", ...config };
-        custom_keys = config.custom_keys || {};
-        custom_sources = config.custom_sources || {};
-        custom_icons = config.custom_icons || {};
+        this.custom_keys = config.custom_keys || {};
+        this.custom_sources = config.custom_sources || {};
+        this.custom_icons = config.custom_icons || {};
 
         this.loadCardHelpers();
         this.renderVolumeSlider();
@@ -116,7 +119,7 @@ class TVCardServices extends LitElement {
 
         let slider_config = {
             "type": "custom:my-slider",
-            "entity": "media_player.tv",
+            "entity": this._config.entity,
             "height": "50px",
             "mainSliderColor": "white",
             "secondarySliderColor": "rgb(60, 60, 60)",
@@ -142,8 +145,9 @@ class TVCardServices extends LitElement {
         }, true);
 
         this.volume_slider.hass = this._hass;
+        this.triggerRender();
     }
-
+    
     sendKey(key) {
         let entity_id = this._config.entity;
 
@@ -168,7 +172,7 @@ class TVCardServices extends LitElement {
             if (this._config.enable_button_feedback === undefined || this._config.enable_button_feedback) fireEvent(window, "haptic", "light");
         };
         if (this._config.enable_double_click) {
-            timer = setTimeout(click_action, 200);
+            this.timer = setTimeout(click_action, 200);
         } else {
             click_action();
         }
@@ -179,8 +183,8 @@ class TVCardServices extends LitElement {
 
         event.stopImmediatePropagation();
 
-        clearTimeout(timer);
-        timer = null;
+        clearTimeout(this.timer);
+        this.timer = null;
 
         this.sendKey(this._config.double_click_keycode ? this._config.double_click_keycode : "BACK");
         if (this._config.enable_button_feedback === undefined || this._config.enable_button_feedback) fireEvent(window, "haptic", "success");
@@ -189,11 +193,11 @@ class TVCardServices extends LitElement {
     onTouchStart(event) {
         event.stopImmediatePropagation();
 
-        holdaction = "ENTER";
-        holdtimer = setTimeout(() => {
+        this.holdaction = "ENTER";
+        this.holdtimer = setTimeout(() => {
             //hold
-            holdinterval = setInterval(() => {
-                this.sendKey(holdaction);
+            this.holdinterval = setInterval(() => {
+                this.sendKey(this.holdaction);
                 if (this._config.enable_button_feedback === undefined || this._config.enable_button_feedback) fireEvent(window, "haptic", "light");
             }, 200);
         }, 700);
@@ -202,14 +206,14 @@ class TVCardServices extends LitElement {
     }
 
     onTouchEnd(event) {
-        clearTimeout(timer);
-        clearTimeout(holdtimer);
-        clearInterval(holdinterval);
+        clearTimeout(this.timer);
+        clearTimeout(this.holdtimer);
+        clearInterval(this.holdinterval);
 
-        holdtimer = null;
-        timer = null;
-        holdinterval = null;
-        holdaction = null;
+        this.holdtimer = null;
+        this.timer = null;
+        this.holdinterval = null;
+        this.holdaction = null;
     }
 
     onTouchMove(event) {
@@ -226,12 +230,12 @@ class TVCardServices extends LitElement {
         if (Math.abs(diffX) > Math.abs(diffY)) {
             // sliding horizontally
             let key = diffX > 0 ? "LEFT" : "RIGHT";
-            holdaction = key;
+            this.holdaction = key;
             this.sendKey(key);
         } else {
             // sliding vertically
             let key = diffY > 0 ? "UP" : "DOWN";
-            holdaction = key;
+            this.holdaction = key;
             this.sendKey(key);
         }
 
@@ -242,7 +246,7 @@ class TVCardServices extends LitElement {
 
     handleActionClick(e) {
         let action = e.currentTarget.action;
-        let info = custom_keys[action] || custom_sources[action] || keys[action] || sources[action];
+        let info = this.custom_keys[action] || this.custom_sources[action] || keys[action] || sources[action];
 
         if (info.key) {
             this.sendKey(info.key);
@@ -259,20 +263,20 @@ class TVCardServices extends LitElement {
     }
 
     buildIconButton(action) {
-        let info = custom_keys[action] || custom_sources[action] || keys[action] || sources[action];
-        let custom_icon_path = info? custom_icons[info.icon] : custom_icons[action];
-        let icon = (
-            custom_icon_path? custom_icon_path :
-            info? mdiIcons[info.icon] :
-            ""
-        );
+        let button_info = this.custom_keys[action] || this.custom_sources[action] || keys[action] || sources[action] || {};
+        let icon = button_info.icon;
+        let custom_svg_path = this.custom_icons[icon];
 
-        return html `
+        return html`
             <ha-icon-button
                 .action="${action}"
                 @click="${this.handleActionClick}"
                 title="${action}"
-                .path="${icon}"
+                .path="${custom_svg_path ? custom_svg_path : ""}"
+                >
+                <ha-icon
+                    .icon="${!custom_svg_path? icon : ""}"
+                </ha-icon>
             </ha-icon-button>
         `;
     }
@@ -286,6 +290,10 @@ class TVCardServices extends LitElement {
     }
     buildButtonsFromActions(actions) {
         return actions.map((action) => this.buildIconButton(action));
+    }
+
+    triggerRender() {
+        this.trigger = Math.random();
     }
     
     render() {
@@ -366,7 +374,7 @@ class TVCardServices extends LitElement {
                 }
                 .row {
                     display: flex;
-                    padding: 1px 12px 1px 12px;
+                    padding: 5px 12px 5px 12px;
                     justify-content: space-evenly;
                 }
                 .diagonal {

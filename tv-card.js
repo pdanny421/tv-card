@@ -23,6 +23,7 @@ const keys = {
     "play": {"key": "KEY_PLAY", "icon": "mdi:play"},
     "pause": {"key": "KEY_PAUSE", "icon": "mdi:pause"},
     "fast_forward": {"key": "KEY_FF", "icon": "mdi:fast-forward"},
+    "apps": {"key": "KEY_SOURCE", "icon": "mdi:apps"},
 };
 
 const sources = {

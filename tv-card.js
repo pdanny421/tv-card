@@ -638,6 +638,7 @@ class TVCardServices extends LitElement {
 					width: 64px;
 					height: 64px;
 					cursor: pointer;
+     					background: #6d767e;
 					--mdc-icon-size: 100%;
 				}
 				.row {

@@ -635,10 +635,10 @@ class TVCardServices extends LitElement {
 				}
 				img,
 				ha-icon-button {
-					width: 64px;
+					width: 60px;
 					height: 64px;
 					cursor: pointer;
-     					background: #6d767e;
+					background-color: var(--light-primary-color);
 					--mdc-icon-size: 100%;
 				}
 				.row {

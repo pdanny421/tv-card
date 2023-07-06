@@ -634,7 +634,7 @@ class TVCardServices extends LitElement {
 					padding: 16px 0px 16px 0px;
 				}
 				img,
-    				.ha-svg-icon {
+    				ha-svg-icon {
 				        background-color: #6d767e;
 	    				border-radius: 25px;
 				}

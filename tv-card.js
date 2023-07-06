@@ -532,10 +532,6 @@ class TVCardServices extends LitElement {
 			>
 				<ha-icon
 					.icon="${!svg_path ? icon : ''}"
-     					.border-radius: 25%;
-				        .background-color: var(
-					  --ha-card-border-color,
-					  var(--divider-color, #e0e0e0)
 				</ha-icon>
 			</ha-icon-button>
 		`;
@@ -643,6 +639,10 @@ class TVCardServices extends LitElement {
 					height: 64px;
 					cursor: pointer;
 					--mdc-icon-size: 100%;
+     					border-radius:=25%;
+				        background-color: var(
+					  --ha-card-border-color,
+					  var(--divider-color, #e0e0e0)
 				}
 				.row {
 					display: flex;

@@ -639,7 +639,7 @@ class TVCardServices extends LitElement {
 					height: 64px;
 					cursor: pointer;
 					--mdc-icon-size: 100%;
-     					border-radius:=25%;
+     					border-radius: 25%;
 				        background-color: var(
 					  --ha-card-border-color,
 					  var(--divider-color, #e0e0e0)

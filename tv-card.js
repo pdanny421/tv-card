@@ -639,8 +639,7 @@ class TVCardServices extends LitElement {
 					height: 64px;
 					cursor: pointer;
 					--mdc-icon-size: 100%;
-     					border-radius: 25%;
-				        background-color: var(--ha-card-border-color);
+     					background: #6d767e;
 				}
 				.row {
 					display: flex;

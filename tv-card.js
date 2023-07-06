@@ -709,4 +709,4 @@ class TVCardServices extends LitElement {
 	}
 }
 
-customElements.define('android-tv-card', TVCardServices);
+customElements.define('tv-card', TVCardServices);

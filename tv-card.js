@@ -634,6 +634,10 @@ class TVCardServices extends LitElement {
 					padding: 16px 0px 16px 0px;
 				}
 				img,
+    				.ha-svg-icon {
+				        background-color: #6d767e;
+	    				border-radius: 25px;
+				}
 				ha-icon-button {
 					width: 64px;
 					height: 64px;
@@ -644,10 +648,6 @@ class TVCardServices extends LitElement {
 					display: flex;
 					padding: 8px 36px 8px 36px;
 					justify-content: space-evenly;
-				}
-    				.ha-svg-icon {
-				        background-color: #6d767e;
-	    				border-radius: 25px;
 				}
 				.diagonal {
 					background-color: var(--light-primary-color);

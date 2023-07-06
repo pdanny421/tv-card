@@ -532,6 +532,10 @@ class TVCardServices extends LitElement {
 			>
 				<ha-icon
 					.icon="${!svg_path ? icon : ''}"
+     					.border-radius: 25%;
+				        .background-color: var(
+					  --ha-card-border-color,
+					  var(--divider-color, #e0e0e0)
 				</ha-icon>
 			</ha-icon-button>
 		`;

@@ -645,7 +645,7 @@ class TVCardServices extends LitElement {
 					padding: 8px 36px 8px 36px;
 					justify-content: space-evenly;
 				}
-    				.mdc-icon-button {
+    				.ha-svg-icon {
 				        background-color: #6d767e;
 	    				border-radius: 25px;
 				}

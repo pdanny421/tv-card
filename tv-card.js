@@ -642,10 +642,12 @@ class TVCardServices extends LitElement {
 				}
 				.row {
 					display: flex;
-     					background-color: #6d767e;
-	  				border-radius: 25%
 					padding: 8px 36px 8px 36px;
 					justify-content: space-evenly;
+				}
+    				.mdc-icon-button {
+				        background-color: #6d767e;
+	    				border-radius: 25px;
 				}
 				.diagonal {
 					background-color: var(--light-primary-color);
